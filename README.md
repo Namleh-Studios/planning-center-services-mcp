@@ -4,6 +4,8 @@ A remote Model Context Protocol server for the Planning Center API, built for Cl
 
 This server exposes generic tools for all Planning Center products plus higher-level Services scheduling helpers. It is designed to be reusable by the community without Namleh Vault or organization-specific dependencies.
 
+Search terms: Planning Center MCP, Planning Center Online MCP, PCO MCP server, Planning Center API MCP server, Church tech MCP, Services scheduling MCP, Cloudflare Workers MCP.
+
 ## Features
 
 - Cloudflare Workers remote MCP server using Streamable HTTP.

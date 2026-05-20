@@ -3,6 +3,19 @@
   "version": "0.2.0",
   "type": "module",
   "description": "A Cloudflare Workers MCP server for the Planning Center API.",
+  "keywords": [
+    "planning-center",
+    "planning-center-online",
+    "planning-center-api",
+    "planning-center-mcp",
+    "pco",
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "cloudflare-workers",
+    "church-tech",
+    "services-scheduling"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "npm exec -- wrangler dev",
