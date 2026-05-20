@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "planning-center-services-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "PCO_API_BASE_URL": "https://api.planningcenteronline.com",
+    "MCP_REQUIRE_AUTH": "true",
+    "PCO_ENABLE_WRITE_TOOLS": "false"
+  }
+}

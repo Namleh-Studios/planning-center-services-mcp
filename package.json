@@ -1,0 +1,29 @@
+{
+  "name": "planning-center-services-mcp",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A Cloudflare Workers MCP server for Planning Center Services scheduling workflows.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm exec -- wrangler dev",
+    "deploy": "npm exec -- wrangler deploy",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run test",
+    "types:worker": "npm exec -- wrangler types"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "agents": "0.13.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.7",
+    "wrangler": "4.93.0"
+  },
+  "overrides": {
+    "ws": "^8.20.1"
+  }
+}

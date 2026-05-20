@@ -1,0 +1,6 @@
+PCO_APP_ID="your_personal_access_token_app_id"
+PCO_SECRET="your_personal_access_token_secret"
+# PCO_ACCESS_TOKEN="optional_oauth_access_token_instead_of_app_id_secret"
+MCP_AUTH_TOKEN="replace-with-a-long-random-token"
+MCP_REQUIRE_AUTH="true"
+PCO_ENABLE_WRITE_TOOLS="false"
