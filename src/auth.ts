@@ -26,7 +26,7 @@ export async function requireMcpAuth(request: Request, env: Env): Promise<AuthCh
       response: new Response("Unauthorized", {
         status: 401,
         headers: {
-          "WWW-Authenticate": 'Bearer realm="planning-center-services-mcp"'
+          "WWW-Authenticate": 'Bearer realm="planning-center-mcp"'
         }
       })
     };

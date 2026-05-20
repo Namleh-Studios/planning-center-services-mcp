@@ -85,7 +85,7 @@ export function formatResource(
   resource: PlanningCenterResource,
   options: { includeRaw?: boolean } = {}
 ): Record<string, unknown> {
-  const formatter = formatters[resource.type] ?? ((item) => pickResource(item, []));
+  const formatter = formatters[resource.type] ?? formatUnknownResource;
   const formatted = formatter(resource);
 
   return {
@@ -94,6 +94,12 @@ export function formatResource(
     ...formatted,
     relationships: compactRelationships(resource),
     ...(options.includeRaw ? { raw: resource } : {})
+  };
+}
+
+function formatUnknownResource(resource: PlanningCenterResource): Record<string, unknown> {
+  return {
+    attributes: resource.attributes ?? {}
   };
 }
 

@@ -1,20 +1,20 @@
 import { createMcpHandler } from "agents/mcp";
 import { requireMcpAuth } from "./auth";
 import { PlanningCenterClient } from "./planning-center";
-import { createServicesMcpServer } from "./tools";
+import { createPlanningCenterMcpServer } from "./tools";
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === "/health") {
-      return Response.json({ ok: true, service: "planning-center-services-mcp" });
+      return Response.json({ ok: true, service: "planning-center-mcp" });
     }
 
     if (url.pathname === "/ready") {
       return Response.json({
         ok: ready(env),
-        service: "planning-center-services-mcp",
+        service: "planning-center-mcp",
         ...new PlanningCenterClient(env).status()
       });
     }
@@ -25,7 +25,7 @@ export default {
         return auth.response;
       }
 
-      const server = createServicesMcpServer(env);
+      const server = createPlanningCenterMcpServer(env);
       return createMcpHandler(server, { route: "/mcp" })(request, env, ctx);
     }
 

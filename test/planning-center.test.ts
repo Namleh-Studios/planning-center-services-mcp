@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { requireMcpAuth } from "../src/auth";
 import { formatDocument } from "../src/format";
-import { PlanningCenterClient } from "../src/planning-center";
+import { PlanningCenterClient, fetchOpenApiDocument, planningCenterOpenApiUrl } from "../src/planning-center";
 
 const baseEnv = {
   PCO_API_BASE_URL: "https://api.planningcenteronline.com",
@@ -48,6 +48,48 @@ describe("PlanningCenterClient", () => {
     await client.get("/people/1");
 
     expect(requests[0]!.headers.get("authorization")).toBe("Bearer oauth-token");
+  });
+
+  it("can target non-Services Planning Center products", async () => {
+    const requests: Request[] = [];
+    const client = new PlanningCenterClient(baseEnv, async (input, init) => {
+      requests.push(new Request(input, init));
+      return Response.json({ data: [] });
+    });
+
+    await client.get("/people", { perPage: 10 }, "people");
+
+    const url = new URL(requests[0]!.url);
+    expect(url.pathname).toBe("/people/v2/people");
+    expect(url.searchParams.get("per_page")).toBe("10");
+  });
+
+  it("rejects unsafe API paths", async () => {
+    const client = new PlanningCenterClient(baseEnv, async () => Response.json({ data: [] }));
+
+    await expect(client.get("/../people", undefined, "people")).rejects.toThrow("Invalid Planning Center API path");
+  });
+
+  it("builds OpenAPI URLs for all-product discovery", async () => {
+    expect(planningCenterOpenApiUrl("check-ins", "2025-05-28")).toBe(
+      "https://api.planningcenteronline.com/check-ins/v2/open_api/2025-05-28"
+    );
+  });
+
+  it("fetches OpenAPI documents without Planning Center auth headers", async () => {
+    const requests: Request[] = [];
+    const document = await fetchOpenApiDocument(baseEnv, "people", "2025-11-10", async (input, init) => {
+      requests.push(new Request(input, init));
+      return Response.json({
+        openapi: "3.1.1",
+        info: { title: "Planning Center People", version: "2025-11-10" },
+        paths: {}
+      });
+    });
+
+    expect(document.info?.title).toBe("Planning Center People");
+    expect(requests[0]!.url).toBe("https://api.planningcenteronline.com/people/v2/open_api/2025-11-10");
+    expect(requests[0]!.headers.has("authorization")).toBe(false);
   });
 });
 

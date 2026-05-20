@@ -1,8 +1,8 @@
 {
   "name": "planning-center-services-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
-  "description": "A Cloudflare Workers MCP server for Planning Center Services scheduling workflows.",
+  "description": "A Cloudflare Workers MCP server for the Planning Center API.",
   "license": "MIT",
   "scripts": {
     "dev": "npm exec -- wrangler dev",
